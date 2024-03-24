@@ -1,0 +1,106 @@
+body {
+  background-color: #def0fe;
+  font-family: "Lucida Console", "Courier New", monospace;
+  color: #6b7177;
+  overflow: hidden;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.home-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.row-1 {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 5%;
+}
+
+.card-3,
+.card-2,
+.card-1 {
+  display: flex;
+  flex-direction: column;
+  /* background-color: white; */
+  padding: 20px;
+  border-radius: 20px;
+  align-items: center;
+}
+
+.card-1 {
+  background-color: #23479c;
+  color: white;
+  min-width: 90%;
+  margin-right: 3%;
+  --mask: radial-gradient(11.93px at 16.5px 50%, #000 99%, #0000 101%) 0
+      calc(50% - 20px) / 100% 40px,
+    radial-gradient(11.93px at -6.5px 50%, #0000 99%, #000 101%) 10px 50%/100%
+      40px repeat-y;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  align-items: center;
+  max-height: 75vh;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  
+}
+
+.card-3,
+.card-2 {
+  width: 20%;
+  margin-right: 3%;
+  width: fit-content;
+  padding: 40px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+
+      --mask:
+        radial-gradient(11.93px at 16.5px 50%,#000 99%,#0000 101%) 0 calc(50% - 20px)/100% 40px,
+        radial-gradient(11.93px at -6.5px 50%,#0000 99%,#000 101%) 10px 50%/100% 40px repeat-y;
+      -webkit-mask: var(--mask);
+              mask: var(--mask);
+}
+
+.percent {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.percent svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.percent circle {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 10; 
+  transform: translate(5px, 5px); }
+
+.percent .num {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.percent .num h2 {
+  color: white;
+  font-weight: 700;
+  font-size: 24px; /* Adjust font size */
+}
+
+

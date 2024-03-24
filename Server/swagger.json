@@ -1,0 +1,916 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "WSA SERVER API DOCUMENTATION",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://wsa-skxu.onrender.com"
+    }
+  ],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "summary": "Login a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to login user"
+          }
+        }
+      }
+    },
+    "/user/register": {
+      "post": {
+        "summary": "Register a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to register user"
+          }
+        }
+      }
+    },
+    "/sodium-hypochlorite": {
+      "post": {
+        "summary": "Create a new sodium hypochlorite entry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SodiumHypochloriteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sodium hypochlorite entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SodiumHypochloriteResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to create sodium hypochlorite entry"
+          }
+        }
+      }
+    },
+    "/hcl": {
+      "post": {
+        "summary": "Create a new HCL entry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HCLRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "HCL entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HCLResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to create HCL entry"
+          }
+        }
+      }
+    },
+    "/device": {
+      "post": {
+        "summary": "Create a new device entry",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Device entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to post device"
+          }
+        }
+      }
+    },
+    "/hcl-target": {
+      "post": {
+        "summary": "Update HCL Target Value",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HCLTargetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated HCL Target Value Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HCLTargetResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed update HCL Target Value"
+          }
+        }
+      }
+    },
+    "/sodium-target": {
+      "post": {
+        "summary": "Update Sodium Target Value",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SodiumTargetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated HCL Target Value Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SodiumTargetResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to post device"
+          }
+        }
+      }
+    },
+    "/sodium-hypochlorite/{name}": {
+      "get": {
+        "summary": "Get sodium hypochlorite entry by Account Name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sodium hypochlorite entry found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SodiumHypochloriteResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sodium hypochlorite entry not found"
+          },
+          "500": {
+            "description": "Failed to get sodium hypochlorite entry"
+          }
+        }
+      }
+    },
+    "/hcl/{name}": {
+      "get": {
+        "summary": "Get HCL entry by Account nsmr",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HCL entry found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HCLResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "HCL entry not found"
+          },
+          "500": {
+            "description": "Failed to get HCL entry"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "Users found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to get users"
+          }
+        }
+      }
+    },
+    "/devices": {
+      "get": {
+        "summary": "Get all devices",
+        "responses": {
+          "200": {
+            "description": "Devices found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DevicesResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to get devices"
+          }
+        }
+      }
+    },
+    "/devices-count": {
+      "get": {
+        "summary": "Get the number of devices",
+        "responses": {
+          "200": {
+            "description": "Devices count found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "items": {
+                    "$ref": "#/components/schemas/DevicesCountResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to get devices count"
+          }
+        }
+      }
+    },
+    "/user-count": {
+      "get": {
+        "summary": "Get the number of users",
+        "responses": {
+          "200": {
+            "description": "Users count found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "items": {
+                    "$ref": "#/components/schemas/UserCountResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to get users count"
+          }
+        }
+      }
+    },
+    "/user/{accountId}": {
+      "get": {
+        "summary": "Get user by account name",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to get user by account name"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user by account ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully deleted"
+          },
+          "400": {
+            "description": "Bad request, invalid input parameter"
+          },
+          "500": {
+            "description": "Internal server error, failed to delete user"
+          }
+        }
+      }
+    },
+    "/users/{userId}/schedule": {
+      "post": {
+        "summary": "Create a new device schedule",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user from whom the schedule is being created",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Schedule details",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "AccountName": {
+                  "type": "string"
+                },
+                "wakeTime": {
+                  "type": "string",
+                  "format": "time",
+                  "description": "Time when the device should wake up"
+                },
+
+                "sleepTime": {
+                  "type": "string",
+                  "format": "time",
+                  "description": "Time when the device is asleep"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Device schedule created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDeviceSchedule"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to create a new device schedule"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all schedules for a user",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Schedules found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDeviceSchedule"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to get schedules for the user"
+          }
+        }
+      }
+    },
+    "/wifi-details": {
+      "post": {
+        "summary": "Create a new WIFI detail",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WifiDetailsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "WIFI detail created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WifiDetailsResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to create WIFI detail"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserRequest": {
+        "type": "object",
+        "properties": {
+          "AccountName": {
+            "type": "string"
+          },
+          "AccountPassword": {
+            "type": "string"
+          },
+          "CustomerName": {
+            "type": "string"
+          },
+          "Phone1": {
+            "type": "string"
+          },
+          "Phone2": {
+            "type": "string"
+          },
+          "Email1": {
+            "type": "string"
+          },
+          "Email2": {
+            "type": "string"
+          },
+          "Email3": {
+            "type": "string"
+          },
+          "Email4": {
+            "type": "string"
+          },
+          "Notes": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "UserEmail": {
+            "type": "string"
+          },
+          "UserPassword": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "response": "boolean"
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer"
+          },
+          "AccountName": {
+            "type": "string"
+          },
+          "AccountPassword": {
+            "type": "string"
+          },
+          "CustomerName": {
+            "type": "string"
+          },
+          "Phone1": {
+            "type": "string"
+          },
+          "Phone2": {
+            "type": "string"
+          },
+          "Email1": {
+            "type": "string"
+          },
+          "Email2": {
+            "type": "string"
+          },
+          "Email3": {
+            "type": "string"
+          },
+          "Email4": {
+            "type": "string"
+          },
+          "Notes": {
+            "type": "string"
+          }
+        }
+      },
+      "SodiumHypochloriteRequest": {
+        "type": "object",
+        "properties": {
+          "AccountName": {
+            "type": "string"
+          },
+          "SodiumHypochloriteActualValue": {
+            "type": "number"
+          },
+          "SodiumHypochloriteLitres": {
+            "type": "number"
+          },
+          "SodiumHypochloriteCycles": {
+            "type": "integer"
+          },
+          "SodiumHypochloriteStatusData": {
+            "type": "number"
+          },
+          "SodiumHypochlorite_DIS_L": {
+            "type": "number"
+          },
+          "SodiumHypochlorite_DPD_mL": {
+            "type": "number"
+          },
+          "SoftwareVersion": {
+            "type": "string"
+          }
+        }
+      },
+      "SodiumHypochloriteResponse": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "SodiumHypochloriteActualValue": {
+            "type": "number"
+          },
+          "SodiumHypochloriteLitres": {
+            "type": "number"
+          },
+          "SodiumHypochloriteCycles": {
+            "type": "integer"
+          },
+          "SodiumHypochloriteStatusData": {
+            "type": "number"
+          },
+          "SodiumHypochlorite_DIS_L": {
+            "type": "number"
+          },
+          "SodiumHypochlorite_DPD_mL": {
+            "type": "number"
+          },
+          "SoftwareVersion": {
+            "type": "string"
+          }
+        }
+      },
+      "HCLRequest": {
+        "type": "object",
+        "properties": {
+          "AccountName": {
+            "type": "string"
+          },
+          "HCLActualValue": {
+            "type": "number"
+          },
+          "HCLLitres": {
+            "type": "number"
+          },
+          "HCLCycles": {
+            "type": "integer"
+          },
+          "HCLStatusData": {
+            "type": "number"
+          },
+          "HCL_PH_L": {
+            "type": "number"
+          },
+          "HCL_PH_mL": {
+            "type": "number"
+          },
+          "SoftwareVersion": {
+            "type": "string"
+          }
+        }
+      },
+      "HCLResponse": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "HCLActualValue": {
+            "type": "number"
+          },
+          "HCLLitres": {
+            "type": "number"
+          },
+          "HCLCycles": {
+            "type": "integer"
+          },
+          "HCLStatusData": {
+            "type": "number"
+          },
+          "HCL_PH_L": {
+            "type": "number"
+          },
+          "HCL_PH_mL": {
+            "type": "number"
+          },
+          "SoftwareVersion": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceRequest": {
+        "type": "object",
+        "properties": {
+          "deviceName": {
+            "type": "string"
+          },
+          "Notes": {
+            "type": "string"
+          }
+        }
+      },
+      "DeviceResponse": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+              "type": "date-time"
+          },
+          "deviceUUID": {
+              "type": "integer"
+          },
+          "deviceName": {
+            "type": "string"
+          },
+          "Notes": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "date-time"
+          }
+        }
+      },
+      "DevicesCountResponse": {
+        "type": "integer",
+        "properties": {
+          "": {
+            "type": "integer"
+        }
+        }
+      },
+      "HCLTargetRequest": {
+        "type": "object",
+        "properties": {
+          "AccountName": {
+            "type": "string"
+          },
+          "HCLTargetValue": {
+            "type": "float"
+          }
+        }
+      },
+      "HCLTargetResponse": {
+        "type": "object",
+        "properties": {
+          "AccountName": {
+            "type": "string"
+          },
+          "HCLTargetValue": {
+            "type": "float"
+          }
+        }
+      },
+      "SodiumTargetRequest": {
+        "type": "object",
+        "properties": {
+          "AccountName": {
+            "type": "string"
+          },
+          "SodiumHypochloriteTargetValue": {
+            "type": "float"
+          }
+        }
+      },
+      "SodiumTargetResponse": {
+        "type": "object",
+        "properties": {
+          "AccountName": {
+            "type": "string"
+          },
+          "SodiumHypochloriteTargetValue": {
+            "type": "float"
+          }
+        }
+      },
+      "UserCountResponse": {
+        "type": "integer",
+        "properties": {
+          "": {
+            "type": "integer"
+        }
+        }
+      },
+      "DevicesResponse": {
+        "type": "array",
+        "properties": {
+          "deviceUUID": {
+              "type": "integer"
+          },
+          "deviceName": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "date-time"
+        },
+          "Notes": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "date-time"
+          }
+        }
+      },
+      "WifiDetailsRequest": {
+        "type": "object",
+        "properties": {
+          "SSID": {
+            "type": "string"
+          },
+          "KEY": {
+            "type": "string"
+          }
+        }
+      },
+      "WifiDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer"
+          },
+          "connectedDeviceId": {
+            "type": "integer"
+          },
+          "SSID": {
+            "type": "string"
+          },
+          "KEY": {
+            "type": "string"
+          }
+        }
+      },
+      "UserDeviceSchedule": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "wakeTime": {
+            "type": "string"
+          },
+          "sleepTime": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+
