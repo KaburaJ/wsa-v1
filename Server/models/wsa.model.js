@@ -36,6 +36,7 @@ module.exports = function (sequelize) {
         primaryKey: true,
       },
       AccountName: { type: DataTypes.STRING(255), allowNull: false },
+      deviceId: { type: DataTypes.INTEGER, allowNull: false }, // Add deviceId
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -48,7 +49,7 @@ module.exports = function (sequelize) {
       },
       SodiumHypochloriteTargetValue: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
       },
       SodiumHypochloriteLitres: { type: DataTypes.FLOAT, allowNull: false },
       SodiumHypochloriteCycles: { type: DataTypes.INTEGER, allowNull: false },
@@ -67,6 +68,7 @@ module.exports = function (sequelize) {
       primaryKey: true,
     },
     AccountName: { type: DataTypes.STRING(255), allowNull: false },
+    deviceId: { type: DataTypes.INTEGER, allowNull: false }, // Add deviceId
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -74,7 +76,7 @@ module.exports = function (sequelize) {
       field: "created_at",
     },
     HCLActualValue: { type: DataTypes.FLOAT, allowNull: false },
-    HCLTargetValue: { type: DataTypes.FLOAT, allowNull: false },
+    HCLTargetValue: { type: DataTypes.FLOAT, allowNull: true },
     HCLLitres: { type: DataTypes.FLOAT, allowNull: false },
     HCLCycles: { type: DataTypes.INTEGER, allowNull: false },
     HCLStatusData: { type: DataTypes.FLOAT, allowNull: false },
@@ -115,6 +117,11 @@ module.exports = function (sequelize) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    CustomerName: {
+      type: DataTypes.STRING(255), 
+      allowNull: true,
+      defaultValue: null, 
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -132,6 +139,7 @@ module.exports = function (sequelize) {
       primaryKey: true,
     },
     AccountName: { type: DataTypes.STRING(255), allowNull: false },
+    deviceId: { type: DataTypes.INTEGER, allowNull: false }, // Add deviceId
     wakeTime: {
       type: DataTypes.TIME,
       allowNull: false,

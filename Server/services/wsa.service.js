@@ -97,7 +97,7 @@ const createUser = async ({
 const createSodiumHypochloriteValues = async ({
   AccountName,
   SodiumHypochloriteActualValue,
-  // SodiumHypochloriteTargetValue,
+  deviceId,
   SodiumHypochloriteLitres,
   SodiumHypochloriteCycles,
   SodiumHypochloriteStatusData,
@@ -109,7 +109,7 @@ const createSodiumHypochloriteValues = async ({
     const newEntry = await db.ConnectedDeviceSodiumHypochlorite.create({
       AccountName,
       SodiumHypochloriteActualValue,
-      // SodiumHypochloriteTargetValue,
+      deviceId,
       SodiumHypochloriteLitres,
       SodiumHypochloriteCycles,
       SodiumHypochloriteStatusData,
@@ -129,7 +129,7 @@ const createSodiumHypochloriteValues = async ({
 const createHCLValues = async ({
   AccountName,
   HCLActualValue,
-  // HCLTargetValue,
+  deviceId,
   HCLLitres,
   HCLCycles,
   HCLStatusData,
@@ -141,7 +141,7 @@ const createHCLValues = async ({
     const newEntry = await db.ConnectedDeviceHCL.create({
       AccountName,
       HCLActualValue,
-      // HCLTargetValue,
+      deviceId,
       HCLLitres,
       HCLCycles,
       HCLStatusData,
@@ -158,12 +158,14 @@ const createHCLValues = async ({
   }
 };
 
-const createDevice = async({  
+const createDevice = async({
+  CustomerName,  
   deviceName,
   Notes
 }) => {
     try {
       const device = await db.Device.create({
+        CustomerName,
         deviceName,
         Notes
       })
