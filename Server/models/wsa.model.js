@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 
 module.exports = function (sequelize) {
   const User = sequelize.define("User", {
@@ -8,20 +8,28 @@ module.exports = function (sequelize) {
       autoIncrement: true,
       primaryKey: true,
     },
-    AccountName: { type: DataTypes.STRING(255), allowNull: false },
+    AccountName: { 
+      type: DataTypes.STRING(255), 
+      allowNull: false, 
+      unique: true // Define the unique constraint here
+    },
     AccountPassword: { type: DataTypes.STRING(255), allowNull: false },
     CustomerName: { type: DataTypes.STRING(255), allowNull: false },
     Phone1: { type: DataTypes.STRING(20), allowNull: false },
     Phone2: { type: DataTypes.STRING(20), allowNull: true },
-    Email1: { type: DataTypes.STRING(255), allowNull: false },
-    Email2: { type: DataTypes.STRING(255), allowNull: true },
-    Email3: { type: DataTypes.STRING(255), allowNull: true },
-    Email4: { type: DataTypes.STRING(255), allowNull: true },
+    Email1: { 
+      type: DataTypes.STRING(255), 
+      allowNull: false, 
+      unique: true // Define the unique constraint here
+    },
+    Email2: { type: DataTypes.STRING(255), allowNull: true, unique: true },
+    Email3: { type: DataTypes.STRING(255), allowNull: true, unique: true },
+    Email4: { type: DataTypes.STRING(255), allowNull: true, unique: true },
     Notes: { type: DataTypes.TEXT, allowNull: true },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       field: "created_at",
     },
   });
@@ -36,11 +44,11 @@ module.exports = function (sequelize) {
         primaryKey: true,
       },
       AccountName: { type: DataTypes.STRING(255), allowNull: false },
-      deviceId: { type: DataTypes.INTEGER, allowNull: false }, // Add deviceId
+      deviceId: { type: DataTypes.INTEGER, allowNull: false },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         field: "created_at",
       },
       SodiumHypochloriteActualValue: {
@@ -72,7 +80,7 @@ module.exports = function (sequelize) {
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       field: "created_at",
     },
     HCLActualValue: { type: DataTypes.FLOAT, allowNull: false },
@@ -99,7 +107,7 @@ module.exports = function (sequelize) {
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       field: "created_at",
     },
     SSID: { type: DataTypes.STRING(100), allowNull: false },
@@ -120,12 +128,12 @@ module.exports = function (sequelize) {
     CustomerName: {
       type: DataTypes.STRING(255), 
       allowNull: true,
-      // defaultValue: null, 
+      defaultValue: null, 
     },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       field: "created_at",
     },
     Notes: { type: DataTypes.TEXT, allowNull: true },
