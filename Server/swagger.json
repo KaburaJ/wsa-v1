@@ -641,7 +641,13 @@
           "AccountName": {
             "type": "string"
           },
+          "deviceId": {
+            "type": "integer"
+          },
           "SodiumHypochloriteActualValue": {
+            "type": "number"
+          },
+          "SodiumHypochloriteTargetValue": {
             "type": "number"
           },
           "SodiumHypochloriteLitres": {
@@ -676,6 +682,9 @@
           "SodiumHypochloriteActualValue": {
             "type": "number"
           },
+          "SodiumHypochloriteTargetValue": {
+            "type": "number"
+          },
           "SodiumHypochloriteLitres": {
             "type": "number"
           },
@@ -702,7 +711,13 @@
           "AccountName": {
             "type": "string"
           },
+          "deviceId": {
+            "type": "integer"
+          },
           "HCLActualValue": {
+            "type": "number"
+          },
+          "HCLTargetValue":{
             "type": "number"
           },
           "HCLLitres": {
@@ -735,6 +750,9 @@
             "type": "integer"
           },
           "HCLActualValue": {
+            "type": "number"
+          },
+          "HCLTargetValue": {
             "type": "number"
           },
           "HCLLitres": {
