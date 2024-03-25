@@ -69,7 +69,7 @@ const Devices = () => {
     const handleDeviceClick = (device, index) => {
         setSelectedDevice(device.deviceName);
         setDeviceFeaturesModalOpen(true);
-    };
+    };    
 
     const deviceFeatures = {
         device1: [

@@ -237,6 +237,16 @@ router.delete("/user/:accountId", async (req, res) => {
   }
 });
 
+router.delete("/device/:Id", async (req, res) => {
+  try {
+    const Id = req.params.accountId;
+    await wsaService.deleteDevice(Id);
+    res.sendStatus(204); 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete device" });
+  }
+});
 
 
 

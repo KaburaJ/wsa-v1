@@ -334,6 +334,17 @@ const deleteUser = async (accountId) => {
   }
 };
 
+const deleteDevice = async (Id) => {
+  try {
+    const { Device } = db;
+    await Device.destroy({
+      where: { deviceUUID: Id }
+    });
+  } catch (error) {
+    throw new Error("Failed to delete device: " + error.message);
+  }
+};
+
 module.exports = {
   loginUser,
   createUser,
@@ -352,5 +363,6 @@ module.exports = {
   getDevicesCount,
   updateHCLTargetValue,
   updateSodiumHypochloriteTargetValue,
-  getAllUserDetails
+  getAllUserDetails,
+  deleteDevice
 };
