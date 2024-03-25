@@ -1,7 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const wsaService = require("../services/wsa.service");
-const bcrypt = require("bcrypt")
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('../swaggerOptions');
+
+const wsaService = require('../services/wsa.service');
+const bcrypt = require('bcrypt');
 
 router.post("/user/login", async(req, res) => {
   try {
@@ -248,6 +251,7 @@ router.delete("/device/:Id", async (req, res) => {
   }
 });
 
-
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerSpec));
 
 module.exports = router;
