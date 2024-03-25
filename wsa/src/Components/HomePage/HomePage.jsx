@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaPlug, FaUsers } from "react-icons/fa";
 import { FaUsersLine } from "react-icons/fa6";
 import { MdAdminPanelSettings } from "react-icons/md";
+import Spinner from "react-spinkit";
 
 const HomePage = () => {
     const [isNavOpen, setNavOpen] = useState(true);
@@ -17,21 +18,22 @@ const HomePage = () => {
     const [deviceCount, setDeviceCount] = useState(0);
     const [userCount, setUserCount] = useState(0);
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true)
     const [showAllUsers, setShowAllUsers] = useState(false); // State to track if all users should be shown
 
     useEffect(() => {
         fetch('https://wsa-v1.onrender.com/devices-count')
             .then(res => res.json())
-            .then(data => setDeviceCount(data))
+            .then(data => {setDeviceCount(data); setLoading(false)})
             .catch(err => console.error(err));
 
         fetch('https://wsa-v1.onrender.com/user-count')
             .then(res => res.json())
-            .then(data => setUserCount(data))
+            .then(data => {setUserCount(data); setLoading(false);})
             .catch(err => console.error(err));
         fetch('https://wsa-v1.onrender.com/users')
             .then(res => res.json())
-            .then(data => setUsers(data))
+            .then(data => {setUsers(data); setLoading(false)})
             .catch(err => console.error(err));
     }, []);
 
@@ -67,7 +69,7 @@ const HomePage = () => {
                 <div className="box box1">
                     <div className="text">
                         <h2 className="topic-heading">{deviceCount}</h2>
-                        <h2 className="topic">Connected Devices</h2>
+                        <h2 className="topic">Registered Devices</h2>
                     </div>
                     <FaPlug style={{ color: "white", fontSize: "24px" }} />
                 </div>
@@ -87,10 +89,10 @@ const HomePage = () => {
                 </div>
                 <div className="box box4">
                     <div className="text">
-                        <h2 className="topic-heading">1</h2>
-                        <h2 className="topic">Admins</h2>
+                        <h2 className="topic-heading">0</h2>
+                        <h2 className="topic">Connected Devices</h2>
                     </div>
-                    <MdAdminPanelSettings style={{ color: "white", fontSize: "24px" }} />
+                    <FaPlug style={{ color: "white", fontSize: "24px" }} />
                 </div>
             </div>
             <div className="report-container">
@@ -113,6 +115,8 @@ const HomePage = () => {
                                 <th>Status</th>
                             </tr>
                         </thead>
+                        {loading ? (<Spinner name="circle" style={{ marginLeft: "195%",marginTop:"20%", height:"40px",color: "#4FAAD1" }} />
+                        ):(
                         <tbody>
                             {showAllUsers
                                 ? users.slice(0, itemsPerPage).map(user => (
@@ -138,7 +142,7 @@ const HomePage = () => {
                                     </tr>
                                 ))
                             }
-                        </tbody>
+                        </tbody>)}
                     </table>
                 </div>
             </div>

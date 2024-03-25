@@ -1,54 +1,37 @@
 import React, { useEffect, useState } from "react";
-import '../Home1/Home.css'
-import { FaEye, FaEyeSlash, FaMinus, FaPlus } from "react-icons/fa";
-import { FaTrashCan, FaXmark } from "react-icons/fa6";
-import axios from 'axios'
-import { MdOutlineRoundaboutRight } from "react-icons/md";
-
+import '../Home1/Home.css';
+import axios from 'axios';
+import { FaPlus, FaTrashCan, FaXmark } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa";
+import Spinner from 'react-spinkit'
 
 const Devices = () => {
-    const [isNavOpen, setNavOpen] = useState(true);
-    const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const [showForm, setShowForm] = useState(false);
     const [selectedDevice, setSelectedDevice] = useState(null);
-    const [deviceNumber, setDeviceNumber] = useState(0);
     const [deviceFeaturesModalOpen, setDeviceFeaturesModalOpen] = useState(false);
-    const [filterParameter, setFilterParameter] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(9);
     const [devices, setDevices] = useState([]);
     const [deviceName, setDeviceName] = useState('');
     const [deviceUUID, setDeviceUUID] = useState('');
     const [notes, setNotes] = useState('');
-    const [alertMessage, setAlertMessage] = useState('');
     const [sodiumHypochloriteValue, setSodiumHypochloriteValue] = useState(null);
     const [hclValue, setHclValue] = useState(null);
+    const [showForm, setShowForm] = useState(false);
+    const [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
-        fetch('https://wsa-v1.onrender.com/devices')
-            .then(res => res.json())
-            .then(data => setDevices(data))
-            .catch(err => console.error(err));
+        fetchDevices();
     }, []);
 
-
-    const handleFilterChange = (e) => {
-        setFilterParameter(e.target.value);
-        setCurrentPage(1);
+    const fetchDevices = async () => {
+        try {
+            const response = await axios.get('https://wsa-v1.onrender.com/devices');
+            setDevices(response.data);
+            setLoading(false)
+        } catch (error) {
+            console.error('Error fetching devices:', error);
+        }
     };
 
-    const toggleNav = () => {
-        setNavOpen(!isNavOpen)
-    }
-
-    const handleShowClick = () => {
-        setShowPassword(!showPassword)
-    }
-
-    const handleShowForm = () => {
-        setShowForm(!showForm)
-    }
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -61,212 +44,163 @@ const Devices = () => {
             setDeviceName('');
             setDeviceUUID('');
             setNotes('');
-            setAlertMessage('Device registered successfully!');
+            setLoading(false)
             alert('Device registered successfully!')
-            setAlertMessage('');
         } catch (error) {
             console.error('Error registering device:', error);
         }
     };
-    const handleDeviceClick = async (device, index) => {
-        console.log("Selected Device Name:", device.deviceName);
+
+    const handleShowForm = () => {
+        setShowForm(!showForm);
+    };
+
+    const handleDeviceClick = async (device) => {
         setSelectedDevice(device.deviceName);
         setDeviceFeaturesModalOpen(true);
         try {
             const [sodiumHypochloriteResponse, hclResponse] = await Promise.all([
-                axios.get(`https://wsa-v1.onrender.com/sodium-hypochlorite/${device.deviceName}`),
-                axios.get(`https://wsa-v1.onrender.com/hcl/${device.deviceName}`)
+                axios.get(`https://wsa-v1.onrender.com/sodium-hypochlorite/${device.deviceUUID}`),
+                axios.get(`https://wsa-v1.onrender.com/hcl/${device.deviceUUID}`)
             ]);
             setSodiumHypochloriteValue(sodiumHypochloriteResponse.data);
             setHclValue(hclResponse.data);
+            setLoading(false)
         } catch (error) {
             console.error('Error fetching additional device information:', error);
+            alert('Error fetching additional device information')
         }
     };
-
-    const deviceFeatures = {
-        device1: [
-            { parameter: "WIFI Status", value: "OK" },
-            { parameter: "Sodium Hypochlorite Target", value: "2.0ppm" },
-            { parameter: "Sodium Hypochlorite Actual", value: "1.63ppm" },
-            { parameter: "HCL Target", value: "2.0pH" },
-            { parameter: "HCL Actual", value: "1.63pH" },
-            { parameter: "Disinfectant", value: "OFF/ON" },
-            { parameter: "pH", value: "OFF/ON" },
-            { parameter: "Pool Volume in Cubic Meters", value: "1.0" },
-            { parameter: "DisinfectantType", value: "HYPO SWIM OUTDOOR" },
-            { parameter: "DisinfectantStrength g/L", value: "130" },
-            { parameter: "Disinfectant Dosing Interval", value: "120 minutes" },
-            { parameter: "pH Chemical", value: "Hydrochloric Acid" },
-            { parameter: "pH Chemical Strength g/L", value: "500" },
-            { parameter: "pH Dosing Interval", value: "30 minutes" },
-            { parameter: "Bluetooth Name", value: "PM5886" },
-            { parameter: "Security Pin", value: "DISABLED" },
-            { parameter: "Wake Timer Control", value: "OFF" },
-            { parameter: "Dosing Start Time", value: "5:00 AM" },
-            { parameter: "Dosing Stop Time", value: "10:00PM" },
-            { parameter: "WIFI Connection", value: "ON" },
-            { parameter: "WIFI SSID", value: "SCL_AP" },
-            { parameter: "WIFI Key", value: "12343dsfffd" },
-            { parameter: "Account Name", value: "Test Account" },
-            { parameter: "Server URL Address", value: "sdcloud.co.nz" },
-            { parameter: "Device Name", value: "PM5886" },
-            { parameter: "DPD Reagent mL Used", value: "529 Mililitres" },
-            { parameter: "pH Reagent mL Used", value: "296 Mililitres" },
-            { parameter: "Sodium Hypochlorite level", value: "24190.08 litres" },
-            { parameter: "HCL Acid Level", value: "1961.20 litres" },
-            { parameter: "Serial Number", value: "5886" },
-            { parameter: "Disinfectant Pump mL/Minute", value: "200" },
-            { parameter: "Disinfectant Minimum Dose PPM", value: "0.1" },
-            { parameter: "DPD Reagent Dose uL", value: "100" },
-            { parameter: "DPD Calibration Factor", value: "0.95" },
-            { parameter: "pH Pump mL/Minute", value: "200" },
-            { parameter: "pH Reagent Dose uL", value: "100" },
-            { parameter: "pH Calibration Offset", value: "0.65" },
-            { parameter: "DPD Reagent Steps Per mL", value: "4230" },
-            { parameter: "DPD Reagent Suck uL", value: "0" },
-            { parameter: "DPD Reagent Blow uL", value: "10" },
-            { parameter: "DPD Mix Time in Seconds", value: "10" },
-            { parameter: "pH Reagent Steps Per mL", value: "4230" },
-            { parameter: "pH Reagent Suck uL", value: "0" },
-            { parameter: "pH Reagent Blow uL", value: "10" },
-            { parameter: "pH Mix Time in Seconds", value: "10" },
-            { parameter: "Flush Time Time in Seconds", value: "15" },
-            { parameter: "Sample Time in Seconds", value: "10" },
-
-        ],
-        Device2: [
-            { parameter: "Feature A", value: "Value A" },
-            { parameter: "Feature B", value: "Value B" },
-            { parameter: "Feature C", value: "Value C" }
-        ],
-        Device3: [
-            { parameter: "Feature X", value: "Value X" },
-            { parameter: "Feature Y", value: "Value Y" },
-            { parameter: "Feature Z", value: "Value Z" }
-        ]
-    };
-
-    const filteredFeatures = selectedDevice ? deviceFeatures[selectedDevice].filter(feature => {
-        if (!filterParameter) return true;
-        return feature.parameter === filterParameter;
-    }) : [];
-
-    // Pagination Logic
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredFeatures.slice(indexOfFirstItem, indexOfLastItem);
-
-    // Calculate total pages
-    const totalPages = Math.ceil(filteredFeatures.length / itemsPerPage);
-
-    // Change page
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+    const handleDelete = async (Id) => {
+        try {
+            const response = await fetch(`https://wsa-v1.onrender.com/device/${Id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ deviceUUID: Id }),
+            });
+            if (response.ok) {
+                console.log("Device deleted successfully");
+                alert("Device deleted successfully")
+            } else {
+                console.error("Failed to delete device");
+                alert("Failed to delete device")
+            }
+        } catch (error) {
+            console.error("Failed to delete device:", error);
+        }
+    }
+    const handleClose = () => {
+        setDeviceFeaturesModalOpen(false)
+        setSodiumHypochloriteValue(0)
+        setHclValue(0)
+    }
     return (
         <div>
-            {showForm ? (
-                <div className="add-user-form">
-                    <form className="add-user" onSubmit={handleSubmit}>
-                        <h3>Register Device</h3>
-                        <input
-                            placeholder="Device Name"
-                            type="text"
-                            value={deviceName}
-                            onChange={(e) => setDeviceName(e.target.value)}
-                            required
-                        />
-                        <input
-                            placeholder="Device UUID"
-                            type="text"
-                            value={deviceUUID}
-                            onChange={(e) => setDeviceUUID(e.target.value)}
-                            required
-                        />
-                        <textarea
-                            placeholder="Notes"
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
-                        ></textarea>
-                        <button type="submit" className="add-user-button" style={{ cursor: "pointer" }}>
-                            Add Device
-                        </button>
-                    </form>
-                </div>
-            ) : (
-                <>
-                    <div className="report-container" style={{ marginTop: "-10px" }}>
-                        <div className="report-header">
-                            <h1 className="recent-Articles">Devices</h1>
-                            <button className="view">View All</button>
-                        </div>
-                        <div className="report-body">
-                            <table className="device-table">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th>UUID</th>
-                                        <th>Customer Name</th>
-                                        <th>Status</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {devices.map((device, index) => (
-                                        <tr key={index} className="device-row" onClick={() => handleDeviceClick(device, index)} style={{ cursor: "pointer" }}>
-                                            <td>{device.deviceName}</td>
-                                            <td>{device.deviceUUID}</td>
-                                            <td>{device.CustomerName || "-"}</td>
-                                            <td className="label-tag">Not Connected</td>
-                                            <td><FaTrashCan style={{ color: "red", cursor: "pointer" }} /></td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+            {showForm ? (<div className="add-user-form">
+                <form className="add-user" onSubmit={handleSubmit}>
+                    <h3>Register Device</h3>
+                    <input
+                        placeholder="Device Name"
+                        type="text"
+                        value={deviceName}
+                        onChange={(e) => setDeviceName(e.target.value)}
+                        required
+                    />
+                    <input
+                        placeholder="Device UUID"
+                        type="text"
+                        value={deviceUUID}
+                        onChange={(e) => setDeviceUUID(e.target.value)}
+                        required
+                    />
+                    <textarea
+                        placeholder="Notes"
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                    ></textarea>
+                    <button type="submit" className="add-user-button" style={{ cursor: "pointer" }}>
+                        Add Device
+                    </button>
+                </form>
+            </div>) : (
+                <div className="report-container" style={{ marginTop: "-10px" }}>
+                    <div className="report-header">
+                        <h1 className="recent-Articles">Devices</h1>
                     </div>
+                    {loading ? (<Spinner name="circle" style={{ marginLeft: "45%", marginTop: "10%", height: "40px", color: "#4FAAD1" }} />
 
-                    {deviceFeaturesModalOpen && selectedDevice && deviceFeatures[selectedDevice] && (
-                        <div className="modal-overlay">
-                            <div className="modal">
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "20px" }}>
-                                    <h2>{selectedDevice}</h2>
-                                    <FaXmark onClick={() => setDeviceFeaturesModalOpen(false)} style={{ color: "#0C2B7B", cursor: "pointer" }} />
-                                </div>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Parameter</th>
-                                            <th>Value</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {deviceFeatures[selectedDevice]?.map((feature, index) => (
-                                            <tr key={index}>
-                                                <td>{feature.parameter}</td>
-                                                <td>{feature.value}</td>
-                                            </tr>
-                                        ))}
-                                        {sodiumHypochloriteValue && (
-                                            <tr>
-                                                <td>Sodium Hypochlorite Value</td>
-                                                <td>{sodiumHypochloriteValue}</td>
-                                            </tr>
-                                        )}
-                                        {hclValue && (
-                                            <tr>
-                                                <td>HCL Value</td>
-                                                <td>{hclValue}</td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
+                    ) : (<div className="report-body">
+                        <table className="device-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>UUID</th>
+                                    <th>Customer Name</th>
+                                    <th>Status</th>
+                                    {/* <th>Delete</th> */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {devices.map((device, index) => (
+                                    <tr key={index} className="device-row" onClick={() => handleDeviceClick(device)} style={{ cursor: "pointer" }}>
+                                        <td>{device.deviceName}</td>
+                                        <td>{device.deviceUUID}</td>
+                                        <td style={{ maxWidth: "20px", padding:"20px" }}>{device.CustomerName || "-"}</td>
+                                        <td className="label-tag" style={{padding:"20px"}}>Not Connected</td>
+                                        {/* <td><FaTrashCan style={{ color: "red", cursor: "pointer" }} onClick={(device) => handleDelete(device.deviceUUID)} /></td> */}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>)}
+                </div>)}
+            {deviceFeaturesModalOpen && selectedDevice && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: "20px" }}>
+                            <h2>{selectedDevice}</h2>
+                            <FaXmark onClick={handleClose} style={{ color: "#0C2B7B", cursor: "pointer" }} />
                         </div>
-                    )}
-
-
-
-                </>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            {loading ? (<Spinner name="circle" style={{ marginLeft: "45%", marginTop: "10%", height: "40px", color: "#4FAAD1" }} />
+                            ) : (
+                                <tbody>
+                                    {sodiumHypochloriteValue && (
+                                        <>
+                                            <tr>
+                                                <td>Sodium Hypochlorite Actual Value</td>
+                                                <td>{sodiumHypochloriteValue.SodiumHypochloriteActualValue}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sodium Hypochlorite Target Value</td>
+                                                <td>{sodiumHypochloriteValue.SodiumHypochloriteTargetValue}</td>
+                                            </tr>
+                                        </>
+                                    )}
+                                    {hclValue && (
+                                        <>
+                                            <tr>
+                                                <td>HCL Actual Value</td>
+                                                <td>{hclValue.HCLActualValue}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>HCL Target Value</td>
+                                                <td>{hclValue.HCLTargetValue}</td>
+                                            </tr>
+                                        </>
+                                    )}
+                                </tbody>)}
+                        </table>
+                    </div>
+                </div>
             )}
             {showForm ? (<FaMinus className="add-user-icon" onClick={handleShowForm} />) : (<FaPlus className="add-user-icon" onClick={handleShowForm} />)}
         </div>

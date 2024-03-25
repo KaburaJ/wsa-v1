@@ -119,8 +119,7 @@ module.exports = function (sequelize) {
     },
     CustomerName: {
       type: DataTypes.STRING(255), 
-      allowNull: true,
-      // defaultValue: null, 
+      allowNull: true
     },
     createdAt: {
       type: DataTypes.DATE,

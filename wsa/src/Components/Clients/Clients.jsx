@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../Home1/Home.css'
 import { FaEye, FaEyeSlash, FaMinus, FaPlus } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
+import Spinner from "react-spinkit";
 
 const Clients = () => {
   const [isNavOpen, setNavOpen] = useState(true);
@@ -18,6 +19,7 @@ const Clients = () => {
   const [userCount, setUserCount] = useState(0);
   const [users, setUsers] = useState([]);
   const [showAllUsers, setShowAllUsers] = useState(true);
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
     AccountName: "",
     AccountPassword: "",
@@ -43,7 +45,7 @@ const Clients = () => {
       .catch(err => console.error(err));
     fetch('https://wsa-v1.onrender.com/users')
       .then(res => res.json())
-      .then(data => setUsers(data))
+      .then(data => {setUsers(data); setLoading(false)})
       .catch(err => console.error(err));
   }, []);
 
@@ -101,13 +103,34 @@ const Clients = () => {
     }
   };
 
+  const handleDelete = async(accountId) => {
+    try {
+      const response = await fetch(`https://wsa-v1.onrender.com/user/${accountId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({accountId: accountId}),
+      });
+      if (response.ok) {
+        console.log("User deleted successfully");
+        alert("User deleted successfully")
+      } else {
+        console.error("Failed to delete user");
+        alert("Failed to delete user")
+      }
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <>
       {showForm ? (
         <div className="report-container" style={{ marginTop: "10px" }}>
           <div className="report-header">
             <h1 className="recent-Articles">Active Users</h1>
-            <button className="view">View All</button>
+            {/* <button className="view">View All</button> */}
           </div>
           <div className="report-body">
             <table className="items">
@@ -120,8 +143,11 @@ const Clients = () => {
                   <th>Phone</th>
                   <th>Created At</th>
                   <th>Status</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
+              {loading ? (<Spinner name="circle" style={{ marginLeft: "195%",marginTop:"20%", height:"40px",color: "#4FAAD1" }} />
+              ):(
               <tbody>
                 {showAllUsers
                   ? users.slice(0, itemsPerPage).map(user => (
@@ -133,6 +159,7 @@ const Clients = () => {
                       <td>{user.Phone1}</td>
                       <td>{user.createdAt}</td>
                       <td className="label-tag">Not Connected</td>
+                      <td><FaTrashCan onClick={(user)=>handleDelete(user.Id)} style={{cursor:"pointer", color:"red"}}/></td>
                     </tr>
                   ))
                   : users.map(user => (
@@ -144,10 +171,11 @@ const Clients = () => {
                       <td>{user.Phone1}</td>
                       <td>{user.createdAt}</td>
                       <td className="label-tag">Not Connected</td>
+                      <td><FaTrashCan onClick={handleDelete(user.Id)} style={{color:"red"}}/></td>
                     </tr>
                   ))
                 }
-              </tbody>
+              </tbody>)}
             </table>
 
 
