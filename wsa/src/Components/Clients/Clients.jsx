@@ -120,7 +120,7 @@ const Clients = () => {
         alert("Failed to delete user")
       }
     } catch (error) {
-      
+      console.error("Failed to register user:", error);
     }
   }
 
@@ -146,7 +146,9 @@ const Clients = () => {
                   <th>Delete</th>
                 </tr>
               </thead>
-              {loading ? (<Spinner name="circle" style={{ marginLeft: "195%",marginTop:"20%", height:"40px",color: "#4FAAD1" }} />
+              {loading ? (
+              <p>Loading...</p>
+              // <Spinner name="circle" style={{ marginLeft: "195%",marginTop:"20%", height:"40px",color: "#4FAAD1" }} />
               ):(
               <tbody>
                 {showAllUsers

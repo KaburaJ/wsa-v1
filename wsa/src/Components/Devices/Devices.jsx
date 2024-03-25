@@ -170,7 +170,9 @@ const Devices = () => {
                                     <th>Value</th>
                                 </tr>
                             </thead>
-                            {loading ? (<Spinner name="circle" style={{ marginLeft: "45%", marginTop: "10%", height: "40px", color: "#4FAAD1" }} />
+                            {loading ? (
+                                <p>Loading...</p>
+                            // <Spinner name="circle" style={{ marginLeft: "45%", marginTop: "10%", height: "40px", color: "#4FAAD1" }} />
                             ) : (
                                 <tbody>
                                     {sodiumHypochloriteValue && (
