@@ -139,7 +139,7 @@ module.exports = function (sequelize) {
       primaryKey: true,
     },
     AccountName: { type: DataTypes.STRING(255), allowNull: false },
-    deviceId: { type: DataTypes.INTEGER, allowNull: false }, // Add deviceId
+    deviceId: { type: DataTypes.INTEGER, allowNull: false }, 
     wakeTime: {
       type: DataTypes.TIME,
       allowNull: false,

@@ -312,6 +312,7 @@ header {
   font-size: 18px;
   letter-spacing: 0px;
   color: var(--one-use-color);
+  max-width: 250px
 }
 
 .items {
@@ -326,7 +327,8 @@ header {
   font-size: 14px;
   letter-spacing: 0px;
   font-weight: 600;
-  padding-right: -70px;
+  min-width: 130px;
+  text-align: center;
 }
 
 .label-tag {
@@ -639,8 +641,9 @@ tr:nth-child(even) {
   padding: 5px;
   border-radius: 50%;
   margin-left: 92%;
+  margin-top: 20%;
   margin-bottom: 30px;
-  font-size: 50px;
+  font-size: 60px;
   color: white;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;

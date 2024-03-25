@@ -11,7 +11,7 @@ const operatorsAliases = {
 
 const getAllUserDetails = async (userId) => {
   try {
-    // Fetch user details
+    const { User } = db;
     const user = await db.User.findByPk(userId, {
       include: [
         { model: db.Device }, // Include devices associated with the user

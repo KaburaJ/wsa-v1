@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './Home.css'
 import logo from '../../Common/Assets/wsa-logo.png'
 import { IoMdMenu } from "react-icons/io";
@@ -9,6 +9,7 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import Clients from "../Clients/Clients";
 import Devices from "../Devices/Devices";
 import HomePage from "../HomePage/HomePage";
+import { MdOutlineRoundaboutRight } from "react-icons/md";
 
 
 const Home1 = () => {
@@ -23,6 +24,21 @@ const Home1 = () => {
     const [filterParameter, setFilterParameter] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(9);
+    const [deviceCount, setDeviceCount] = useState(0);
+    const [userCount, setUserCount] = useState(0);
+
+    useEffect(() => {
+        fetch('/api/devices-count')
+            .then(res => res.json())
+            .then(data => setDeviceCount(data))
+            .catch(err => console.error(err));
+
+        fetch('/api/user-count')
+            .then(res => res.json())
+            .then(data => setUserCount(data))
+            .catch(err => console.error(err));
+    }, []);
+
 
     const handleFilterChange = (e) => {
         setFilterParameter(e.target.value);
@@ -152,7 +168,7 @@ const Home1 = () => {
             <div className={`main-container`}>
                 <div className={`navcontainer ${isNavOpen ? "" : "navclose"}`}>
                     <nav className="nav">
-                        <div className="nav-upper-options">
+                        <div className="nav-upper-options" style={{marginTop:"40px"}}>
                             <div className={`nav-option ${isSelected && isSelected === 'home' ? 'option1' : ''}`} onClick={() => handleSelect("home")}>
                                 <MdDashboard className="nav-img" />
                                 <p> Dashboard</p>
@@ -169,10 +185,10 @@ const Home1 = () => {
                                 <FaGear className="nav-img" />
                                 <p> Settings</p>
                             </div> */}
-                            <div className={`nav-option logout ${isSelected && isSelected === 'logout' ? 'option1' : ''}`} onClick={() => handleSelect("logout")}>
-                                <RiLogoutCircleLine className="nav-img" />
-                                <p>Logout</p>
-                            </div>
+                            {/* <div className={`nav-option logout ${isSelected && isSelected === 'logout' ? 'option1' : ''}`} onClick={() => handleSelect("logout")}>
+                                <MdOutlineRoundaboutRight className="nav-img" />
+                                <p>About</p>
+                            </div> */}
                         </div>
                     </nav>
                 </div>
