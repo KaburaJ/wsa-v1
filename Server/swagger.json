@@ -400,6 +400,60 @@
           }
         }
       },
+      "/user/{accountId}": {
+      "delete": {
+        "summary": "Delete a user by account ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the user to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully deleted"
+          },
+          "400": {
+            "description": "Bad request, invalid input parameter"
+          },
+          "500": {
+            "description": "Internal server error, failed to delete user"
+          }
+        }
+      }
+    },
+    "/device/{Id}": {
+    "delete": {
+      "summary": "Delete a device by account ID",
+      "parameters": [
+        {
+          "in": "path",
+          "name": "accountId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "description": "The ID of the device to delete"
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Device successfully deleted"
+        },
+        "400": {
+          "description": "Bad request, invalid input parameter"
+        },
+        "500": {
+          "description": "Internal server error, failed to delete device"
+        }
+      }
+    }
+  },
     "/users/{userId}/schedule": {
       "post": {
         "summary": "Create a new device schedule",
@@ -906,4 +960,3 @@
   }
 }
 }
-
