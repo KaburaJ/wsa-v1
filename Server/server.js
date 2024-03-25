@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 app.get("/", (req,res) => res.send("WSA"));
 app.use("/", require("./controllers/wsa.controller"));
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 const port = process.env.PORT || 5000;
 
