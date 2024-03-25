@@ -222,7 +222,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "integer"
             }
           }
         ],
@@ -255,7 +255,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "integer"
             }
           }
         ],
@@ -279,6 +279,7 @@
         }
       }
     },
+
     "/users": {
       "get": {
         "summary": "Get all users",
@@ -401,562 +402,562 @@
         }
       },
       "/user/{accountId}": {
-      "delete": {
-        "summary": "Delete a user by account ID",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "accountId",
-            "required": true,
-            "schema": {
-              "type": "string"
+        "delete": {
+          "summary": "Delete a user by account ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "accountId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the user to delete"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "User successfully deleted"
             },
-            "description": "The ID of the user to delete"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "User successfully deleted"
-          },
-          "400": {
-            "description": "Bad request, invalid input parameter"
-          },
-          "500": {
-            "description": "Internal server error, failed to delete user"
-          }
-        }
-      }
-    },
-    "/device/{Id}": {
-    "delete": {
-      "summary": "Delete a device by account ID",
-      "parameters": [
-        {
-          "in": "path",
-          "name": "accountId",
-          "required": true,
-          "schema": {
-            "type": "string"
-          },
-          "description": "The ID of the device to delete"
-        }
-      ],
-      "responses": {
-        "204": {
-          "description": "Device successfully deleted"
-        },
-        "400": {
-          "description": "Bad request, invalid input parameter"
-        },
-        "500": {
-          "description": "Internal server error, failed to delete device"
-        }
-      }
-    }
-  },
-    "/users/{userId}/schedule": {
-      "post": {
-        "summary": "Create a new device schedule",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "description": "ID of the user from whom the schedule is being created",
-            "schema": {
-              "type": "integer"
+            "400": {
+              "description": "Bad request, invalid input parameter"
+            },
+            "500": {
+              "description": "Internal server error, failed to delete user"
             }
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Schedule details",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "AccountName": {
-                  "type": "string"
-                },
-                "wakeTime": {
-                  "type": "string",
-                  "format": "time",
-                  "description": "Time when the device should wake up"
-                },
-
-                "sleepTime": {
-                  "type": "string",
-                  "format": "time",
-                  "description": "Time when the device is asleep"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Device schedule created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDeviceSchedule"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Failed to create a new device schedule"
           }
         }
       },
-      "get": {
-        "summary": "Get all schedules for a user",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
+      "/device/{Id}": {
+        "delete": {
+          "summary": "Delete a device by account ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "accountId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "The ID of the device to delete"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Device successfully deleted"
+            },
+            "400": {
+              "description": "Bad request, invalid input parameter"
+            },
+            "500": {
+              "description": "Internal server error, failed to delete device"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "Schedules found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserDeviceSchedule"
+        }
+      },
+      "/users/{userId}/schedule": {
+        "post": {
+          "summary": "Create a new device schedule",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "description": "ID of the user from whom the schedule is being created",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Schedule details",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "AccountName": {
+                    "type": "string"
+                  },
+                  "wakeTime": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "Time when the device should wake up"
+                  },
+
+                  "sleepTime": {
+                    "type": "string",
+                    "format": "time",
+                    "description": "Time when the device is asleep"
                   }
                 }
               }
             }
-          },
-          "400": {
-            "description": "Failed to get schedules for the user"
-          }
-        }
-      }
-    },
-    "/wifi-details": {
-      "post": {
-        "summary": "Create a new WIFI detail",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WifiDetailsRequest"
+          ],
+          "responses": {
+            "201": {
+              "description": "Device schedule created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserDeviceSchedule"
+                  }
+                }
               }
+            },
+            "400": {
+              "description": "Failed to create a new device schedule"
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "WIFI detail created",
+        "get": {
+          "summary": "Get all schedules for a user",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Schedules found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/UserDeviceSchedule"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Failed to get schedules for the user"
+            }
+          }
+        }
+      },
+      "/wifi-details": {
+        "post": {
+          "summary": "Create a new WIFI detail",
+          "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WifiDetailsResponse"
+                  "$ref": "#/components/schemas/WifiDetailsRequest"
                 }
               }
             }
           },
-          "500": {
-            "description": "Failed to create WIFI detail"
+          "responses": {
+            "200": {
+              "description": "WIFI detail created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WifiDetailsResponse"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Failed to create WIFI detail"
+            }
           }
         }
       }
-    }
-  },
-  "components": {
-    "schemas": {
-      "UserRequest": {
-        "type": "object",
-        "properties": {
-          "AccountName": {
-            "type": "string"
-          },
-          "AccountPassword": {
-            "type": "string"
-          },
-          "CustomerName": {
-            "type": "string"
-          },
-          "Phone1": {
-            "type": "string"
-          },
-          "Phone2": {
-            "type": "string"
-          },
-          "Email1": {
-            "type": "string"
-          },
-          "Email2": {
-            "type": "string"
-          },
-          "Email3": {
-            "type": "string"
-          },
-          "Email4": {
-            "type": "string"
-          },
-          "Notes": {
-            "type": "string"
+    },
+    "components": {
+      "schemas": {
+        "UserRequest": {
+          "type": "object",
+          "properties": {
+            "AccountName": {
+              "type": "string"
+            },
+            "AccountPassword": {
+              "type": "string"
+            },
+            "CustomerName": {
+              "type": "string"
+            },
+            "Phone1": {
+              "type": "string"
+            },
+            "Phone2": {
+              "type": "string"
+            },
+            "Email1": {
+              "type": "string"
+            },
+            "Email2": {
+              "type": "string"
+            },
+            "Email3": {
+              "type": "string"
+            },
+            "Email4": {
+              "type": "string"
+            },
+            "Notes": {
+              "type": "string"
+            }
           }
-        }
-      },
-      "LoginRequest": {
-        "type": "object",
-        "properties": {
-          "UserEmail": {
-            "type": "string"
-          },
-          "UserPassword": {
-            "type": "string"
-          }
-        }
-      },
-      "LoginResponse": {
-        "type": "object",
-        "properties": {
-          "response": "boolean"
-        }
-      },
-      "UserResponse": {
-        "type": "object",
-        "properties": {
-          "Id": {
-            "type": "integer"
-          },
-          "AccountName": {
-            "type": "string"
-          },
-          "AccountPassword": {
-            "type": "string"
-          },
-          "CustomerName": {
-            "type": "string"
-          },
-          "Phone1": {
-            "type": "string"
-          },
-          "Phone2": {
-            "type": "string"
-          },
-          "Email1": {
-            "type": "string"
-          },
-          "Email2": {
-            "type": "string"
-          },
-          "Email3": {
-            "type": "string"
-          },
-          "Email4": {
-            "type": "string"
-          },
-          "Notes": {
-            "type": "string"
-          }
-        }
-      },
-      "SodiumHypochloriteRequest": {
-        "type": "object",
-        "properties": {
-          "AccountName": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "integer"
-          },
-          "SodiumHypochloriteActualValue": {
-            "type": "number"
-          },
-          "SodiumHypochloriteTargetValue": {
-            "type": "number"
-          },
-          "SodiumHypochloriteLitres": {
-            "type": "number"
-          },
-          "SodiumHypochloriteCycles": {
-            "type": "integer"
-          },
-          "SodiumHypochloriteStatusData": {
-            "type": "number"
-          },
-          "SodiumHypochlorite_DIS_L": {
-            "type": "number"
-          },
-          "SodiumHypochlorite_DPD_mL": {
-            "type": "number"
-          },
-          "SoftwareVersion": {
-            "type": "string"
-          }
-        }
-      },
-      "SodiumHypochloriteResponse": {
-        "type": "object",
-        "properties": {
-          "Id": {
-            "type": "integer"
-          },
-          "userId": {
-            "type": "integer"
-          },
-          "SodiumHypochloriteActualValue": {
-            "type": "number"
-          },
-          "SodiumHypochloriteTargetValue": {
-            "type": "number"
-          },
-          "SodiumHypochloriteLitres": {
-            "type": "number"
-          },
-          "SodiumHypochloriteCycles": {
-            "type": "integer"
-          },
-          "SodiumHypochloriteStatusData": {
-            "type": "number"
-          },
-          "SodiumHypochlorite_DIS_L": {
-            "type": "number"
-          },
-          "SodiumHypochlorite_DPD_mL": {
-            "type": "number"
-          },
-          "SoftwareVersion": {
-            "type": "string"
-          }
-        }
-      },
-      "HCLRequest": {
-        "type": "object",
-        "properties": {
-          "AccountName": {
-            "type": "string"
-          },
-          "deviceId": {
-            "type": "integer"
-          },
-          "HCLActualValue": {
-            "type": "number"
-          },
-          "HCLTargetValue":{
-            "type": "number"
-          },
-          "HCLLitres": {
-            "type": "number"
-          },
-          "HCLCycles": {
-            "type": "integer"
-          },
-          "HCLStatusData": {
-            "type": "number"
-          },
-          "HCL_PH_L": {
-            "type": "number"
-          },
-          "HCL_PH_mL": {
-            "type": "number"
-          },
-          "SoftwareVersion": {
-            "type": "string"
-          }
-        }
-      },
-      "HCLResponse": {
-        "type": "object",
-        "properties": {
-          "Id": {
-            "type": "integer"
-          },
-          "userId": {
-            "type": "integer"
-          },
-          "HCLActualValue": {
-            "type": "number"
-          },
-          "HCLTargetValue": {
-            "type": "number"
-          },
-          "HCLLitres": {
-            "type": "number"
-          },
-          "HCLCycles": {
-            "type": "integer"
-          },
-          "HCLStatusData": {
-            "type": "number"
-          },
-          "HCL_PH_L": {
-            "type": "number"
-          },
-          "HCL_PH_mL": {
-            "type": "number"
-          },
-          "SoftwareVersion": {
-            "type": "string"
-          }
-        }
-      },
-      "DeviceRequest": {
-        "type": "object",
-        "properties": {
-          "deviceName": {
-            "type": "string"
-          },
-          "Notes": {
-            "type": "string"
-          }
-        }
-      },
-      "DeviceResponse": {
-        "type": "object",
-        "properties": {
-          "createdAt": {
-              "type": "date-time"
-          },
-          "deviceUUID": {
-              "type": "integer"
-          },
-          "deviceName": {
-            "type": "string"
-          },
-          "Notes": {
-            "type": "string"
-          },
-          "updatedAt": {
-            "type": "date-time"
-          }
-        }
-      },
-      "DevicesCountResponse": {
-        "type": "integer",
-        "properties": {
-          "": {
-            "type": "integer"
-        }
-        }
-      },
-      "HCLTargetRequest": {
-        "type": "object",
-        "properties": {
-          "AccountName": {
-            "type": "string"
-          },
-          "HCLTargetValue": {
-            "type": "float"
-          }
-        }
-      },
-      "HCLTargetResponse": {
-        "type": "object",
-        "properties": {
-          "AccountName": {
-            "type": "string"
-          },
-          "HCLTargetValue": {
-            "type": "float"
-          }
-        }
-      },
-      "SodiumTargetRequest": {
-        "type": "object",
-        "properties": {
-          "AccountName": {
-            "type": "string"
-          },
-          "SodiumHypochloriteTargetValue": {
-            "type": "float"
-          }
-        }
-      },
-      "SodiumTargetResponse": {
-        "type": "object",
-        "properties": {
-          "AccountName": {
-            "type": "string"
-          },
-          "SodiumHypochloriteTargetValue": {
-            "type": "float"
-          }
-        }
-      },
-      "UserCountResponse": {
-        "type": "integer",
-        "properties": {
-          "": {
-            "type": "integer"
-        }
-        }
-      },
-      "DevicesResponse": {
-        "type": "array",
-        "properties": {
-          "deviceUUID": {
-              "type": "integer"
-          },
-          "deviceName": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "date-time"
         },
-          "Notes": {
-            "type": "string"
-          },
-          "updatedAt": {
-            "type": "date-time"
+        "LoginRequest": {
+          "type": "object",
+          "properties": {
+            "UserEmail": {
+              "type": "string"
+            },
+            "UserPassword": {
+              "type": "string"
+            }
           }
-        }
-      },
-      "WifiDetailsRequest": {
-        "type": "object",
-        "properties": {
-          "SSID": {
-            "type": "string"
-          },
-          "KEY": {
-            "type": "string"
+        },
+        "LoginResponse": {
+          "type": "object",
+          "properties": {
+            "response": "boolean"
           }
-        }
-      },
-      "WifiDetailsResponse": {
-        "type": "object",
-        "properties": {
-          "Id": {
-            "type": "integer"
-          },
-          "connectedDeviceId": {
-            "type": "integer"
-          },
-          "SSID": {
-            "type": "string"
-          },
-          "KEY": {
-            "type": "string"
+        },
+        "UserResponse": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "integer"
+            },
+            "AccountName": {
+              "type": "string"
+            },
+            "AccountPassword": {
+              "type": "string"
+            },
+            "CustomerName": {
+              "type": "string"
+            },
+            "Phone1": {
+              "type": "string"
+            },
+            "Phone2": {
+              "type": "string"
+            },
+            "Email1": {
+              "type": "string"
+            },
+            "Email2": {
+              "type": "string"
+            },
+            "Email3": {
+              "type": "string"
+            },
+            "Email4": {
+              "type": "string"
+            },
+            "Notes": {
+              "type": "string"
+            }
           }
-        }
-      },
-      "UserDeviceSchedule": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "integer"
-          },
-          "wakeTime": {
-            "type": "string"
-          },
-          "sleepTime": {
-            "type": "string"
+        },
+        "SodiumHypochloriteRequest": {
+          "type": "object",
+          "properties": {
+            "AccountName": {
+              "type": "string"
+            },
+            "deviceId": {
+              "type": "integer"
+            },
+            "SodiumHypochloriteActualValue": {
+              "type": "number"
+            },
+            "SodiumHypochloriteTargetValue": {
+              "type": "number"
+            },
+            "SodiumHypochloriteLitres": {
+              "type": "number"
+            },
+            "SodiumHypochloriteCycles": {
+              "type": "integer"
+            },
+            "SodiumHypochloriteStatusData": {
+              "type": "number"
+            },
+            "SodiumHypochlorite_DIS_L": {
+              "type": "number"
+            },
+            "SodiumHypochlorite_DPD_mL": {
+              "type": "number"
+            },
+            "SoftwareVersion": {
+              "type": "string"
+            }
+          }
+        },
+        "SodiumHypochloriteResponse": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "integer"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "SodiumHypochloriteActualValue": {
+              "type": "number"
+            },
+            "SodiumHypochloriteTargetValue": {
+              "type": "number"
+            },
+            "SodiumHypochloriteLitres": {
+              "type": "number"
+            },
+            "SodiumHypochloriteCycles": {
+              "type": "integer"
+            },
+            "SodiumHypochloriteStatusData": {
+              "type": "number"
+            },
+            "SodiumHypochlorite_DIS_L": {
+              "type": "number"
+            },
+            "SodiumHypochlorite_DPD_mL": {
+              "type": "number"
+            },
+            "SoftwareVersion": {
+              "type": "string"
+            }
+          }
+        },
+        "HCLRequest": {
+          "type": "object",
+          "properties": {
+            "AccountName": {
+              "type": "string"
+            },
+            "deviceId": {
+              "type": "integer"
+            },
+            "HCLActualValue": {
+              "type": "number"
+            },
+            "HCLTargetValue": {
+              "type": "number"
+            },
+            "HCLLitres": {
+              "type": "number"
+            },
+            "HCLCycles": {
+              "type": "integer"
+            },
+            "HCLStatusData": {
+              "type": "number"
+            },
+            "HCL_PH_L": {
+              "type": "number"
+            },
+            "HCL_PH_mL": {
+              "type": "number"
+            },
+            "SoftwareVersion": {
+              "type": "string"
+            }
+          }
+        },
+        "HCLResponse": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "integer"
+            },
+            "userId": {
+              "type": "integer"
+            },
+            "HCLActualValue": {
+              "type": "number"
+            },
+            "HCLTargetValue": {
+              "type": "number"
+            },
+            "HCLLitres": {
+              "type": "number"
+            },
+            "HCLCycles": {
+              "type": "integer"
+            },
+            "HCLStatusData": {
+              "type": "number"
+            },
+            "HCL_PH_L": {
+              "type": "number"
+            },
+            "HCL_PH_mL": {
+              "type": "number"
+            },
+            "SoftwareVersion": {
+              "type": "string"
+            }
+          }
+        },
+        "DeviceRequest": {
+          "type": "object",
+          "properties": {
+            "deviceName": {
+              "type": "string"
+            },
+            "Notes": {
+              "type": "string"
+            }
+          }
+        },
+        "DeviceResponse": {
+          "type": "object",
+          "properties": {
+            "createdAt": {
+              "type": "date-time"
+            },
+            "deviceUUID": {
+              "type": "integer"
+            },
+            "deviceName": {
+              "type": "string"
+            },
+            "Notes": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "date-time"
+            }
+          }
+        },
+        "DevicesCountResponse": {
+          "type": "integer",
+          "properties": {
+            "": {
+              "type": "integer"
+            }
+          }
+        },
+        "HCLTargetRequest": {
+          "type": "object",
+          "properties": {
+            "AccountName": {
+              "type": "string"
+            },
+            "HCLTargetValue": {
+              "type": "float"
+            }
+          }
+        },
+        "HCLTargetResponse": {
+          "type": "object",
+          "properties": {
+            "AccountName": {
+              "type": "string"
+            },
+            "HCLTargetValue": {
+              "type": "float"
+            }
+          }
+        },
+        "SodiumTargetRequest": {
+          "type": "object",
+          "properties": {
+            "AccountName": {
+              "type": "string"
+            },
+            "SodiumHypochloriteTargetValue": {
+              "type": "float"
+            }
+          }
+        },
+        "SodiumTargetResponse": {
+          "type": "object",
+          "properties": {
+            "AccountName": {
+              "type": "string"
+            },
+            "SodiumHypochloriteTargetValue": {
+              "type": "float"
+            }
+          }
+        },
+        "UserCountResponse": {
+          "type": "integer",
+          "properties": {
+            "": {
+              "type": "integer"
+            }
+          }
+        },
+        "DevicesResponse": {
+          "type": "array",
+          "properties": {
+            "deviceUUID": {
+              "type": "integer"
+            },
+            "deviceName": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "date-time"
+            },
+            "Notes": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "date-time"
+            }
+          }
+        },
+        "WifiDetailsRequest": {
+          "type": "object",
+          "properties": {
+            "SSID": {
+              "type": "string"
+            },
+            "KEY": {
+              "type": "string"
+            }
+          }
+        },
+        "WifiDetailsResponse": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "integer"
+            },
+            "connectedDeviceId": {
+              "type": "integer"
+            },
+            "SSID": {
+              "type": "string"
+            },
+            "KEY": {
+              "type": "string"
+            }
+          }
+        },
+        "UserDeviceSchedule": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "integer"
+            },
+            "wakeTime": {
+              "type": "string"
+            },
+            "sleepTime": {
+              "type": "string"
+            }
           }
         }
       }
     }
   }
-}
 }
