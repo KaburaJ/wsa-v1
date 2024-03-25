@@ -281,11 +281,11 @@ const getUserDetailsByAccountName = async (accountName) => {
   }
 };
 
-const getSodiumHypochloriteValue = async (accountName) => {
+const getSodiumHypochloriteValue = async (Id) => {
   try {
     const { ConnectedDeviceSodiumHypochlorite } = db;
     const sodiumHypochloriteValue = await ConnectedDeviceSodiumHypochlorite.findOne({
-      where: { AccountName: accountName }
+      where: { deviceId: Id }
     });
     return sodiumHypochloriteValue;
   } catch (error) {
@@ -296,11 +296,11 @@ const getSodiumHypochloriteValue = async (accountName) => {
   }
 };
 
-const getHCLValue = async (accountName) => {
+const getHCLValue = async (Id) => {
   try {
     const { ConnectedDeviceHCL } = db;
     const HCLValue = await ConnectedDeviceHCL.findOne({
-      where: { AccountName: accountName }
+      where: { deviceId: Id }
     });
     return HCLValue;
   } catch (error) {

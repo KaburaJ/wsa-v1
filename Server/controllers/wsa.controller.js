@@ -81,9 +81,9 @@ router.post("/sodium-target", async(req, res) => {
   }
 })
 
-router.get("/sodium-hypochlorite/:name", async (req, res) => {
+router.get("/sodium-hypochlorite/:Id", async (req, res) => {
   try {
-    const sodiumHypochloriteName = req.params.name;
+    const sodiumHypochloriteName = req.params.Id;
     const sodiumHypochloriteValue = await wsaService.getSodiumHypochloriteValue(sodiumHypochloriteName);
     
     if (!sodiumHypochloriteValue) {
@@ -97,9 +97,9 @@ router.get("/sodium-hypochlorite/:name", async (req, res) => {
   }
 });
 
-router.get("/hcl/:name", async (req, res) => {
+router.get("/hcl/:Id", async (req, res) => {
   try {
-    const HCL_name = req.params.name;
+    const HCL_name = req.params.Id;
     const HCLValue = await wsaService.getHCLValue(HCL_name);
     
     if (!HCLValue) {

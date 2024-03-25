@@ -22,6 +22,8 @@ const Devices = () => {
     const [deviceUUID, setDeviceUUID] = useState('');
     const [notes, setNotes] = useState('');
     const [alertMessage, setAlertMessage] = useState('');
+    const [sodiumHypochloriteValue, setSodiumHypochloriteValue] = useState(null);
+    const [hclValue, setHclValue] = useState(null);
 
     useEffect(() => {
         fetch('https://wsa-v1.onrender.com/devices')
@@ -66,10 +68,21 @@ const Devices = () => {
             console.error('Error registering device:', error);
         }
     };
-    const handleDeviceClick = (device, index) => {
+    const handleDeviceClick = async (device, index) => {
+        console.log("Selected Device Name:", device.deviceName);
         setSelectedDevice(device.deviceName);
         setDeviceFeaturesModalOpen(true);
-    };    
+        try {
+            const [sodiumHypochloriteResponse, hclResponse] = await Promise.all([
+                axios.get(`https://wsa-v1.onrender.com/sodium-hypochlorite/${device.deviceName}`),
+                axios.get(`https://wsa-v1.onrender.com/hcl/${device.deviceName}`)
+            ]);
+            setSodiumHypochloriteValue(sodiumHypochloriteResponse.data);
+            setHclValue(hclResponse.data);
+        } catch (error) {
+            console.error('Error fetching additional device information:', error);
+        }
+    };
 
     const deviceFeatures = {
         device1: [
@@ -199,7 +212,7 @@ const Devices = () => {
                                 </thead>
                                 <tbody>
                                     {devices.map((device, index) => (
-                                        <tr key={index} className="device-row" onClick={() => handleDeviceClick(device, index)}>
+                                        <tr key={index} className="device-row" onClick={() => handleDeviceClick(device, index)} style={{ cursor: "pointer" }}>
                                             <td>{device.deviceName}</td>
                                             <td>{device.deviceUUID}</td>
                                             <td>{device.CustomerName || "-"}</td>
@@ -219,23 +232,6 @@ const Devices = () => {
                                     <h2>{selectedDevice}</h2>
                                     <FaXmark onClick={() => setDeviceFeaturesModalOpen(false)} style={{ color: "#0C2B7B", cursor: "pointer" }} />
                                 </div>
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                                    <div className="pagination">
-                                        {Array.from({ length: totalPages }, (_, i) => (
-                                            <button key={i} onClick={() => setCurrentPage(i + 1)} style={{ marginRight: "10px", marginBottom: "20px" }}>
-                                                {i + 1}
-                                            </button>
-                                        ))}
-                                    </div>
-                                    <div style={{ marginTop: "10px" }}>
-                                        <select id="filter" onChange={handleFilterChange} value={filterParameter} style={{ border: "1px solid #dddddd", height: "38px", paddingLeft: "20px", borderRadius: "10px" }}>
-                                            <option value="">All</option>
-                                            {deviceFeatures[selectedDevice].map((feature, index) => (
-                                                <option key={index} value={feature.parameter}>{feature.parameter}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
                                 <table>
                                     <thead>
                                         <tr>
@@ -244,17 +240,30 @@ const Devices = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {deviceFeatures[selectedDevice].map((feature, index) => (
+                                        {deviceFeatures[selectedDevice]?.map((feature, index) => (
                                             <tr key={index}>
                                                 <td>{feature.parameter}</td>
                                                 <td>{feature.value}</td>
                                             </tr>
                                         ))}
+                                        {sodiumHypochloriteValue && (
+                                            <tr>
+                                                <td>Sodium Hypochlorite Value</td>
+                                                <td>{sodiumHypochloriteValue}</td>
+                                            </tr>
+                                        )}
+                                        {hclValue && (
+                                            <tr>
+                                                <td>HCL Value</td>
+                                                <td>{hclValue}</td>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     )}
+
 
 
                 </>

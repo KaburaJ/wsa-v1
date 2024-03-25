@@ -213,16 +213,16 @@
         }
       }
     },
-    "/sodium-hypochlorite/{name}": {
+    "/sodium-hypochlorite/{Id}": {
       "get": {
         "summary": "Get sodium hypochlorite entry by Account Name",
         "parameters": [
           {
-            "name": "name",
+            "name": "Id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
@@ -246,16 +246,16 @@
         }
       }
     },
-    "/hcl/{name}": {
+    "/hcl/{Id}": {
       "get": {
         "summary": "Get HCL entry by Account nsmr",
         "parameters": [
           {
-            "name": "name",
+            "name": "Id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "number"
             }
           }
         ],
