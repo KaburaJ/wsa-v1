@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import '../Home1/Home.css'
 import { FaEye, FaEyeSlash, FaMinus, FaPlus } from "react-icons/fa";
 import { FaTrashCan } from "react-icons/fa6";
-import Spinner from "react-spinkit";
 
 const Clients = () => {
   const [isNavOpen, setNavOpen] = useState(true);

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaPlug, FaUsers } from "react-icons/fa";
 import { FaUsersLine } from "react-icons/fa6";
 import { MdAdminPanelSettings } from "react-icons/md";
-import Spinner from "react-spinkit";
 
 const HomePage = () => {
     const [isNavOpen, setNavOpen] = useState(true);

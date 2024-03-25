@@ -3,7 +3,6 @@ import '../Home1/Home.css';
 import axios from 'axios';
 import { FaPlus, FaTrashCan, FaXmark } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
-import Spinner from 'react-spinkit'
 
 const Devices = () => {
     const [selectedDevice, setSelectedDevice] = useState(null);
@@ -129,7 +128,9 @@ const Devices = () => {
                     <div className="report-header">
                         <h1 className="recent-Articles">Devices</h1>
                     </div>
-                    {loading ? (<Spinner name="circle" style={{ marginLeft: "45%", marginTop: "10%", height: "40px", color: "#4FAAD1" }} />
+                    {loading ? (
+                        <p>Loading...</p>
+                    // <Spinner name="circle" style={{ marginLeft: "45%", marginTop: "10%", height: "40px", color: "#4FAAD1" }} />
 
                     ) : (<div className="report-body">
                         <table className="device-table">
