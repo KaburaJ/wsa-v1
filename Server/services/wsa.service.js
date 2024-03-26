@@ -235,7 +235,7 @@ const assignDeviceUser = async ({
   try {
     const { Device } = db;
     const [updatedDevice] = await Device.update(
-      { CustomerName },
+      { CustomerName, UserId },
       { where: { deviceUUID } }
     );
     return updatedDevice;

@@ -95,8 +95,21 @@ const Devices = () => {
         setSodiumHypochloriteValue(0)
         setHclValue(0)
     }
-    const handleAssign = (device) => {
-
+    const handleAssign = async(device) => {
+        // try {
+        //     const response = await axios.post('https://wsa-v1.onrender.com/assign', {
+        //         CustomerName,
+        //         deviceUUID
+        //     });
+        //     console.log(response.data);
+        //     setDeviceName('');
+        //     setDeviceUUID('');
+        //     setNotes('');
+        //     setLoading(false)
+        //     alert('Device registered successfully!')
+        // } catch (error) {
+        //     console.error('Error registering device:', error);
+        // }
     }
     return (
         <div>

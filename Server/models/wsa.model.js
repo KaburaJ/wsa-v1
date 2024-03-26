@@ -166,24 +166,16 @@ module.exports = function (sequelize) {
   User.hasMany(UserDeviceSchedule);
   UserDeviceSchedule.belongsTo(User);
 
-  // Define foreign key constraints
-  sequelize.models.ConnectedDeviceSodiumHypochlorite.belongsTo(Device, {
-    foreignKey: {
-      name: 'deviceId',
-      allowNull: false,
-      onDelete: 'NO ACTION', 
-      onUpdate: 'CASCADE',
-    }
+  Device.hasMany(ConnectedDeviceSodiumHypochlorite, {
+    onDelete: 'NO ACTION', 
+    onUpdate: 'CASCADE'
   });
-
-  sequelize.models.ConnectedDeviceHCL.belongsTo(Device, {
-    foreignKey: {
-      name: 'deviceId',
-      allowNull: false,
-      onDelete: 'NO ACTION', 
-      onUpdate: 'CASCADE',
-    }
+  
+  Device.hasMany(ConnectedDeviceHCL, {
+    onDelete: 'NO ACTION', 
+    onUpdate: 'CASCADE'
   });
+  
 
   return {
     User,
