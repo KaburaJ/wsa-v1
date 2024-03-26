@@ -265,7 +265,7 @@ const Clients = () => {
               value={formData.Notes}
               onChange={handleChange}
             />
-            <button type="submit" className="add-user-button">
+            <button type="submit" className="add-user-button" style={{color:"white"}}>
               Add User
             </button>
           </form>

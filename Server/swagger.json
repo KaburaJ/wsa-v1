@@ -156,7 +156,7 @@
       }
     },
     "/hcl-target": {
-      "post": {
+      "put": {
         "summary": "Update HCL Target Value",
         "requestBody": {
           "content": {
@@ -185,7 +185,7 @@
       }
     },
     "/sodium-target": {
-      "post": {
+      "put": {
         "summary": "Update Sodium Target Value",
         "requestBody": {
           "content": {

@@ -228,6 +228,22 @@ const updateHCLTargetValue = async ({
   }
 };
 
+const assignDeviceUser = async ({
+  CustomerName,
+  deviceUUID
+}) => {
+  try {
+    const { Device } = db;
+    const [updatedDevice] = await Device.update(
+      { CustomerName },
+      { where: { deviceUUID } }
+    );
+    return updatedDevice;
+  } catch (error) {
+    throw new Error("Failed to assign device to user: " + error.message);
+  }
+};
+
 const getUsers = async () => {
   try {
     const { User } = db;
@@ -364,5 +380,6 @@ module.exports = {
   updateHCLTargetValue,
   updateSodiumHypochloriteTargetValue,
   getAllUserDetails,
-  deleteDevice
+  deleteDevice,
+  assignDeviceUser
 };

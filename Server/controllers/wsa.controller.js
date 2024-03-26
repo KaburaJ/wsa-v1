@@ -61,7 +61,7 @@ router.post("/device", async(req, res) => {
   }
 })
 
-router.post("/hcl-target", async(req, res) => {
+router.put("/hcl-target", async(req, res) => {
   try {
     const newTarget = await wsaService.updateHCLTargetValue(req.body);
     res.status(201).json(newTarget)
@@ -71,13 +71,23 @@ router.post("/hcl-target", async(req, res) => {
   }
 })
 
-router.post("/sodium-target", async(req, res) => {
+router.put("/sodium-target", async(req, res) => {
   try {
     const newTarget = await wsaService.updateSodiumHypochloriteTargetValue(req.body);
     res.status(201).json(newTarget)
   } catch (error) {
     console.error(error);
     res.status(500).json({error: "Failed to update Sodium Hypochlorite value"})
+  }
+})
+
+router.put("/assign", async(req, res) => {
+  try {
+    const newDeviceDetails = await wsaService.assignDeviceUser(req.body);
+    res.status(201).json(newDeviceDetails)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({error: "Failed to assign user to device"})
   }
 })
 

@@ -95,6 +95,9 @@ const Devices = () => {
         setSodiumHypochloriteValue(0)
         setHclValue(0)
     }
+    const handleAssign = (device) => {
+
+    }
     return (
         <div>
             {showForm ? (<div className="add-user-form">
@@ -145,11 +148,11 @@ const Devices = () => {
                             </thead>
                             <tbody>
                                 {devices.map((device, index) => (
-                                    <tr key={index} className="device-row" onClick={() => handleDeviceClick(device)} style={{ cursor: "pointer" }}>
-                                        <td>{device.deviceName}</td>
-                                        <td>{device.deviceUUID}</td>
-                                        <td style={{ maxWidth: "20px", padding:"20px" }}>{device.CustomerName || "-"}</td>
-                                        <td className="label-tag" style={{padding:"20px"}}>Not Connected</td>
+                                    <tr key={index} className="device-row">
+                                        <td style={{width:"150px", padding:"20px", cursor: "pointer" }} onClick={() => handleDeviceClick(device)}>{device.deviceName}</td>
+                                        <td style={{width:"150px", padding:"20px" }}>{device.deviceUUID}</td>
+                                        <td style={{width:"150px", padding:"20px" }}>{device.CustomerName||<button type="submit" className="add-user-button" style={{width:"100px",marginLeft:"30px", cursor: "pointer"}} onClick={(device) => handleAssign(device)}>Assign</button>}</td>
+                                        <td className="label-tag" style={{width:"150px", padding:"20px" }}>Not Connected</td>
                                         {/* <td><FaTrashCan style={{ color: "red", cursor: "pointer" }} onClick={(device) => handleDelete(device.deviceUUID)} /></td> */}
                                     </tr>
                                 ))}
