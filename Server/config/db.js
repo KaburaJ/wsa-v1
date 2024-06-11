@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
     host: process.env.HOST,
     port: process.env.SQL_PORT,
     dialect: process.env.DIALECT,
-    database: process.env.DB,
+    //database: process.env.DB,
     pool: {
       max: 10,
       min: 0,
